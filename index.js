@@ -23,6 +23,8 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+const port = process.env.PORT || 5000
+
 // Order Routes
 app.use('/', orderRoutes)
 
@@ -30,4 +32,4 @@ app.get('/*', (req, res) => {
     res.json({Error: 404, Message: "Looks like you got lost!"})
 })
 
-app.listen(5000, () => console.log("Server is running"));
+app.listen(port, () => console.log("Server is running"));
