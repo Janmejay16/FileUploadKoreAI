@@ -1,0 +1,11 @@
+---------------------------------------------------------------------------------------------------------------------------------------
+Name: Janmejay Shastri
+---------------------------------------------------------------------------------------------------------------------------------------
+Tech Stack Used: ExpressJs (JavaScript)
+Database: MongoDB
+Deployment: Heroku
+---------------------------------------------------------------------------------------------------------------------------------------
+Github Link: https://github.com/Janmejay16/FileUploadKoreAI
+Application Deployed on Heroku: https://milk-distributor-api.herokuapp.com/
+Documentation: https://github.com/Janmejay16/FileUploadKoreAI/blob/main/README.md
+---------------------------------------------------------------------------------------------------------------------------------------
