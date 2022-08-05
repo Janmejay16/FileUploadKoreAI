@@ -1,0 +1,33 @@
+GET http://localhost:5000/
+
+###
+
+GET http://localhost:5000/capacity
+
+###
+
+GET http://localhost:5000/checkCapacity/2022-07-16
+
+###
+
+POST http://localhost:5000/add
+Content-Type: application/json
+
+{
+    "orderedBy": "Bhavya Gandhi",
+    "capacity": 16,
+    "date": "2022-07-16"
+}
+
+###
+PUT http://localhost:5000/update/62ed59ed4002b94ed98d4188
+Content-Type: application/json
+
+{
+    "date": "2022-04-15",
+    "capacity": 2
+}
+
+
+###
+DELETE http://localhost:5000/delete/62ed53b99f4a483883a57072
