@@ -4,10 +4,10 @@ const router = require('express').Router();
 
 router.get('/', (req, res) => {
     OrderSchema.find({})
-    .then(data => res.json(data))
+    .then(data => res.status(200).json(data))
     .catch(err => {
         console.log(err)
-        res.json({error: "Something went wrong!"})
+        res.status(500).json({error: "Something went wrong!"})
     })
 })
 
@@ -21,11 +21,11 @@ router.get('/capacity', async (req, res) => {
                 }}
             ]
         )
-        return res.json(capacityUsed)
+        return res.status(200).json(capacityUsed)
     }
     catch(err) {
         console.log(err)
-        res.json({Error: err})
+        res.status(500).json({Error: err})
     }
 })
 
@@ -41,11 +41,11 @@ router.get('/checkCapacity/:date', async (req, res) => {
                 }}
             ]
         )
-        return res.json({milkLeft: process.env.MAX_CAPACITY - capacityUsed[0].TotalCapacity})
+        return res.status(200).json({milkLeft: process.env.MAX_CAPACITY - capacityUsed[0].TotalCapacity})
     }
     catch(err) {
         console.log(err)
-        res.json({Error: err})
+        res.status(500).json({Error: err})
     }
 })
 
@@ -65,7 +65,7 @@ router.post('/add', async (req, res) => {
         )
 
         if(capacityUsed[0].TotalCapacity + capacity > process.env.MAX_CAPACITY) {
-            return res.json({
+            return res.status(400).json({
                 Error: `Daily Capacity is exceeding (Max Capacity = ${process.env.MAX_CAPACITY})!`,
                 capacityUsed: capacityUsed[0].TotalCapacity,
                 success: false
@@ -79,12 +79,12 @@ router.post('/add', async (req, res) => {
                 capacity: capacity,
                 date: date ? new Date(date) : Date.now()
             })
-            res.json(data)
+            res.status(201).json(data)
         }
     }
     catch(err) {
         console.log(err)
-        res.json({Error: err})
+        res.status(500).json({Error: err})
     }
 })
 
@@ -110,7 +110,7 @@ router.put('/update/:id', async (req, res) => {
             )
 
             if(capacityUsed.length == 1 && capacityUsed[0].TotalCapacity + updateData.capacity > process.env.MAX_CAPACITY) {
-                return res.json({
+                return res.status(400).json({
                     Error: `Daily Capacity is exceeding (Max Capacity = ${process.env.MAX_CAPACITY})!`,
                     capacityUsed: capacityUsed[0].TotalCapacity,
                     success: false
@@ -125,17 +125,17 @@ router.put('/update/:id', async (req, res) => {
             {...updateData}
         ).then(done => {
             if(done.modifiedCount)
-                return res.json({message: "Updated"})
+                return res.status(200).json({message: "Updated"})
             else 
-                return res.json({message: "Order not found!"})
+                return res.status(404).json({message: "Order not found!"})
         })
         .catch(err => {
-            res.json({Error: err})
+            res.status(500).json({Error: err})
         })
     }
     catch(err) {
         console.log(err)
-        res.json({Error: err})
+        res.status(500).json({Error: err})
     }
 })
 
@@ -146,19 +146,19 @@ router.delete('/delete/:id', async (req, res) => {
         .then(deleted => {
             console.log(deleted)
             if(deleted?.deletedCount) {
-                return res.json({message: "Deleted"})
+                return res.status(200).json({message: "Deleted"})
             }
             else {
-                return res.json({message: "Order not found!"})
+                return res.status(404).json({message: "Order not found!"})
             }
         })
         .catch(err => {
-            res.json({Error: err})
+            res.status(500).json({Error: err})
         })
     }
     catch(err) {
         console.log(err)
-        res.json({Error: err})
+        res.status(500).json({Error: err})
     }
 })
 
